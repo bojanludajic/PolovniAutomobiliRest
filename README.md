@@ -24,12 +24,12 @@ Retrieve all available parts for a specific car make and model.
 
 ---
 
-### **2. POST /order**
+### **2. PUT /order**
 Order a specific car part.
 
 #### **Request**
 - **URL:** `/order`
-- **Method:** `POST`
+- **Method:** `PUT`
 - **Content-Type:** `application/json`
 - **Request Body:**
   ```json
