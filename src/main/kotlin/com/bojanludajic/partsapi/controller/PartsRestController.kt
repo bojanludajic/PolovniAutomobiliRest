@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*
 class PartsRestController(@Autowired private val service: RestService) {
 
     @GetMapping("/partsForModel")
-    fun partsForModel(@RequestBody @Valid request: CarRequestDTO): ResponseEntity<*> {
-        val parts = service.getParts(request)
+    fun partsForModel(@RequestParam make: String, @RequestParam model: String): ResponseEntity<*> {
+        val parts = service.getParts(make, model)
         if(parts.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Nema delova za ovaj auto!")
@@ -24,7 +24,7 @@ class PartsRestController(@Autowired private val service: RestService) {
         return ResponseEntity.ok(parts)
     }
 
-    @PatchMapping("/order")
+    @PutMapping("/order")
     fun orderPart(@RequestBody @Valid request: CarRequestDTO): ResponseEntity<*> {
         val part = service.findPart(request)
 
@@ -35,7 +35,7 @@ class PartsRestController(@Autowired private val service: RestService) {
 
         if(part.availability == 0) {
             return ResponseEntity.badRequest()
-                .body("Ovaj deo nije dostupan!")
+                .body("Ovaj deo trenutno nije dostupan!")
         }
 
         try {
