@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class RestService(@Autowired private val pr: PartRepository) {
 
     fun getParts(make: String, model: String) =
-        pr.getPartByMakeAndAndModel(make, model)
+        pr.getPartByMakeAndModel(make, model)
 
     fun findPart(request: CarRequestDTO) =
         pr.findPart(request.make, request.model, request.name!!)

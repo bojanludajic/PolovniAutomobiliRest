@@ -3,7 +3,6 @@ package com.bojanludajic.partsapi.controller
 import com.bojanludajic.partsapi.CarRequestDTO
 import com.bojanludajic.partsapi.service.RestService
 import jakarta.validation.Valid
-import model.Part
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -27,11 +26,8 @@ class PartsRestController(@Autowired private val service: RestService) {
     @PutMapping("/order")
     fun orderPart(@RequestBody @Valid request: CarRequestDTO): ResponseEntity<*> {
         val part = service.findPart(request)
-
-        if(part == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            ?: return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Nije pronadjen taj teo.")
-        }
 
         if(part.availability == 0) {
             return ResponseEntity.badRequest()

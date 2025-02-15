@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PartRepository : JpaRepository<Part, Int> {
 
-    fun getPartByMakeAndAndModel(make: String, model: String): List<Part>
+    fun getPartByMakeAndModel(make: String, model: String): List<Part>
 
     @Query("Select p from Part p where p.make = :x and p.model = :y and p.name = :z")
     fun findPart(@Param(value="x") make: String,
